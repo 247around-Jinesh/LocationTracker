@@ -22,7 +22,6 @@ public class LocationService extends Service {
     private String NOTIFICATION_CHANNEL_ID = "my_notification_location";
     private String TAG = "LocationService";
     boolean isServiceStarted=false;
-    GPSTracker gps;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -51,7 +50,7 @@ public class LocationService extends Service {
                 this, new MyLocationListener() {
                     @Override
                     public void onLocationChanged(Location location) {
-                        Log.d("Changed", "onLocationChanged: Latitude ${it.latitude} , Longitude ${it.longitude}");
+                        Log.d("Changed", "onLocationChanged: Latitude"+location.getLatitude()+" , Longitude "+location.getLongitude());
                         Log.d("Changed", "run: Running = Location Update Successful");
                         Toast.makeText(getApplicationContext(),String.valueOf(location.getLongitude()),Toast.LENGTH_SHORT).show();
 
