@@ -53,32 +53,52 @@ public class MainActivity extends AppCompatActivity{
         textView1=(TextView) findViewById(R.id.textView1);
         buttonStopService=(Button) findViewById(R.id.textView);
         /////////////////////////////////////////////
+        checkAndLocationRequestPermissions();
         Calendar calStart = Calendar.getInstance();
 
-        calStart.set(Calendar.HOUR_OF_DAY, 9);
-        calStart.set(Calendar.MINUTE, 0);
+        calStart.set(Calendar.HOUR_OF_DAY, 3);
+        calStart.set(Calendar.MINUTE, 26);
         calStart.set(Calendar.SECOND, 0);
         calStart.set(Calendar.MILLISECOND, 0);
 
         Intent intent = new Intent(getBaseContext(), TestReceiver.class);
+        intent.setAction("START_SERVICE");
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 getBaseContext(), 1, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(),
-                pendingIntent);
+        /*alarmManager.set(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(),
+                pendingIntent);*/
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(), pendingIntent);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(), pendingIntent);
+        } else {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calStart.getTimeInMillis(), pendingIntent);
+        }
         /////////////////////////////////////////////
         Calendar calEnd = Calendar.getInstance();
 
-        calEnd.set(Calendar.HOUR_OF_DAY, 15);
-        calEnd.set(Calendar.MINUTE, 0);
+        calEnd.set(Calendar.HOUR_OF_DAY, 3);
+        calEnd.set(Calendar.MINUTE, 28);
         calEnd.set(Calendar.SECOND, 0);
         calEnd.set(Calendar.MILLISECOND, 0);
         Intent intentEnd = new Intent(getBaseContext(), TestReceiver.class);
+        intent.setAction("STOP_SERVICE");
         PendingIntent pendingIntentEnd = PendingIntent.getBroadcast(
                 getBaseContext(), 2, intentEnd, 0);
         AlarmManager alarmManager2 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager2.set(AlarmManager.RTC_WAKEUP, calEnd.getTimeInMillis(),
-                pendingIntentEnd);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager2.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calEnd.getTimeInMillis(), pendingIntentEnd);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager2.setExact(AlarmManager.RTC_WAKEUP, calEnd.getTimeInMillis(), pendingIntentEnd);
+        } else {
+            alarmManager2.set(AlarmManager.RTC_WAKEUP, calEnd.getTimeInMillis(), pendingIntentEnd);
+        }
+        /*alarmManager2.set(AlarmManager.RTC_WAKEUP, calEnd.getTimeInMillis(),
+                pendingIntentEnd);*/
         /*//////////////////////////////*/
         buttonStartService.setOnClickListener(new View.OnClickListener() {
             @Override

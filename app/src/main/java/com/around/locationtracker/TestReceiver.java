@@ -15,22 +15,23 @@ public class TestReceiver extends BroadcastReceiver {
     public static Context ctx;
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(isServiceLive()) {
-            Intent intentservice=new Intent(context,LocationService.class);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                ContextCompat.startForegroundService(context,intentservice);
+        if(intent.getAction()!=null) {
+            if (!intent.getAction().equals("STOP_SERVICE")) {
+                Intent intentservice = new Intent(context, LocationService.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    ContextCompat.startForegroundService(context, intentservice);
+                } else {
+                    context.startService(intentservice);
+                }
             } else {
-                context.startService(intentservice);
+                Intent intentstop = new Intent(context, LocationService.class);
+                context.stopService(intentstop);
             }
-        }
-        else {
-            Intent intentstop=new Intent(context, LocationService.class);
-            context.stopService(intentstop);
         }
     }
     public static boolean isServiceLive() {
         int start = 9;
-        int end = 15;
+        int end = 12;
         int hours = 24 - start + end;
 
         Calendar cal = Calendar.getInstance();
@@ -48,7 +49,7 @@ public class TestReceiver extends BroadcastReceiver {
         long currentMilli = Calendar.getInstance().getTimeInMillis();
 
 
-        if (currentMilli >= startHourMilli && currentMilli <= endHourMilli) {
+        if (currentMilli >= startHourMilli && currentMilli < endHourMilli) {
             return true;
         }else
             return false;
