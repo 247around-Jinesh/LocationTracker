@@ -10,9 +10,6 @@ public class BootDeviceReceivers extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-
-
-
         ContextCompat.startForegroundService(context, intent);
     }
 }

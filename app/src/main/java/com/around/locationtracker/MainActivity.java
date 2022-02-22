@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity{
         checkAndLocationRequestPermissions();
         Calendar calStart = Calendar.getInstance();
 
-        calStart.set(Calendar.HOUR_OF_DAY, 3);
-        calStart.set(Calendar.MINUTE, 26);
+        calStart.set(Calendar.HOUR_OF_DAY, 18);
+        calStart.set(Calendar.MINUTE, 20);
         calStart.set(Calendar.SECOND, 0);
         calStart.set(Calendar.MILLISECOND, 0);
 
@@ -81,12 +81,12 @@ public class MainActivity extends AppCompatActivity{
         /////////////////////////////////////////////
         Calendar calEnd = Calendar.getInstance();
 
-        calEnd.set(Calendar.HOUR_OF_DAY, 3);
-        calEnd.set(Calendar.MINUTE, 28);
+        calEnd.set(Calendar.HOUR_OF_DAY, 18);
+        calEnd.set(Calendar.MINUTE, 25);
         calEnd.set(Calendar.SECOND, 0);
         calEnd.set(Calendar.MILLISECOND, 0);
         Intent intentEnd = new Intent(getBaseContext(), TestReceiver.class);
-        intent.setAction("STOP_SERVICE");
+        intentEnd.setAction("STOP_SERVICE");
         PendingIntent pendingIntentEnd = PendingIntent.getBroadcast(
                 getBaseContext(), 2, intentEnd, 0);
         AlarmManager alarmManager2 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity{
         buttonStartService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!checkAndLocationRequestPermissions()) {
+                /*if (!checkAndLocationRequestPermissions()) {
                     // check if GPS enabled
                         try {
                             Intent intent=new Intent(getApplicationContext(),LocationService.class);
@@ -119,15 +119,15 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-                }
+                }*/
 
             }
         });
         buttonStopService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),LocationService.class);
-                stopService(intent);
+                /*Intent intent=new Intent(getApplicationContext(),LocationService.class);
+                stopService(intent);*/
             }
         });
         /*////////////////////////////////////////*/
