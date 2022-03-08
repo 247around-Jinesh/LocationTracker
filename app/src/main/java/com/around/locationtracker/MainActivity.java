@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -56,8 +57,8 @@ public class MainActivity extends AppCompatActivity{
         checkAndLocationRequestPermissions();
         Calendar calStart = Calendar.getInstance();
 
-        calStart.set(Calendar.HOUR_OF_DAY, 18);
-        calStart.set(Calendar.MINUTE, 20);
+        calStart.set(Calendar.HOUR_OF_DAY, 10);
+        calStart.set(Calendar.MINUTE, 30);
         calStart.set(Calendar.SECOND, 0);
         calStart.set(Calendar.MILLISECOND, 0);
 
@@ -81,8 +82,8 @@ public class MainActivity extends AppCompatActivity{
         /////////////////////////////////////////////
         Calendar calEnd = Calendar.getInstance();
 
-        calEnd.set(Calendar.HOUR_OF_DAY, 18);
-        calEnd.set(Calendar.MINUTE, 25);
+        calEnd.set(Calendar.HOUR_OF_DAY, 19);
+        calEnd.set(Calendar.MINUTE, 31);
         calEnd.set(Calendar.SECOND, 0);
         calEnd.set(Calendar.MILLISECOND, 0);
         Intent intentEnd = new Intent(getBaseContext(), TestReceiver.class);
@@ -150,6 +151,8 @@ public class MainActivity extends AppCompatActivity{
 
         int fgservice = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.FOREGROUND_SERVICE);
+        int networkState = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_NETWORK_STATE);
 
         List<String> listPermissionsNeeded = new ArrayList<>();
 
@@ -164,7 +167,9 @@ public class MainActivity extends AppCompatActivity{
         if (fgservice != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.FOREGROUND_SERVICE);
         }
-
+        if (networkState != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_NETWORK_STATE);
+        }
         if (!listPermissionsNeeded.isEmpty()) {
             ActivityCompat.requestPermissions(this,
                     listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),
@@ -173,5 +178,4 @@ public class MainActivity extends AppCompatActivity{
         }
         return true;
     }
-
 }

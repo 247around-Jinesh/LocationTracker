@@ -1,6 +1,8 @@
 package com.around.locationtracker;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -12,7 +14,7 @@ import androidx.annotation.NonNull;
 import java.util.List;
 
 public class LocationHelper {
-    int LOCATION_REFRESH_TIME = 10000;// 3 seconds. The Minimum Time to get location update
+    int LOCATION_REFRESH_TIME = 5000;// 3 seconds. The Minimum Time to get location update
     int LOCATION_REFRESH_DISTANCE = 0; // 0 meters. The Minimum Distance to be changed to get location update
 
     @SuppressLint("MissingPermission")
@@ -23,7 +25,7 @@ public class LocationHelper {
         LocationListener locationListener=new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                myLocationListener.onLocationChanged(location);
+                    myLocationListener.onLocationChanged(location);
             }
 
             @Override
@@ -52,6 +54,7 @@ public class LocationHelper {
                 LOCATION_REFRESH_DISTANCE,
                 locationListener);
     }
+
 }
 
 interface MyLocationListener {

@@ -21,11 +21,11 @@ import java.util.Timer;
 public class LocationService extends Service {
     private String NOTIFICATION_CHANNEL_ID = "my_notification_location";
     private String TAG = "LocationService";
-    boolean isServiceStarted=false;
+    public static boolean isServiceStarted=false;
+    MainActivity activity=new MainActivity();
     @Override
     public void onCreate() {
         super.onCreate();
-        //gps = new GPSTracker(this);
         isServiceStarted = true;
         NotificationCompat.Builder builder=
                 new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
@@ -46,15 +46,15 @@ public class LocationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.v("engineerBuddyy","hiiiiiiii");
         new LocationHelper().startListeningUserLocation(
                 this, new MyLocationListener() {
                     @Override
                     public void onLocationChanged(Location location) {
-                        Log.d("Changed", "onLocationChanged: Latitude"+location.getLatitude()+" , Longitude "+location.getLongitude());
-                        Log.d("Changed", "run: Running = Location Update Successful");
-                        Toast.makeText(getApplicationContext(),String.valueOf(location.getLongitude()),Toast.LENGTH_SHORT).show();
-
-
+                        if(LocationService.isServiceStarted)
+                            Log.d("Changed", "onLocationChanged: Latitude" + location.getLatitude() + " , Longitude " + location.getLongitude());
+                            Log.d("Changed", "run: Running = Location Update Successful");
+                            Toast.makeText(getApplicationContext(), String.valueOf(location.getLongitude()), Toast.LENGTH_SHORT).show();
                     }
 
                 });
