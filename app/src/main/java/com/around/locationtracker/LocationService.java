@@ -51,7 +51,6 @@ public class LocationService extends Service {
                 this, new MyLocationListener() {
                     @Override
                     public void onLocationChanged(Location location) {
-                        if(LocationService.isServiceStarted)
                             Log.d("Changed", "onLocationChanged: Latitude" + location.getLatitude() + " , Longitude " + location.getLongitude());
                             Log.d("Changed", "run: Running = Location Update Successful");
                             Toast.makeText(getApplicationContext(), String.valueOf(location.getLongitude()), Toast.LENGTH_SHORT).show();
